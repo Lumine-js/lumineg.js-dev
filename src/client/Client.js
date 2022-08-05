@@ -33,8 +33,9 @@ class Client extends EventEmitter {
       },
     });
 
-    this.ws.onopen = () => {
+    this.ws.onopen = (data) => {
       console.log('Lumine.js Succesfull To Connect Websocket');
+      console.log(data)
     }
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
@@ -53,7 +54,7 @@ class Client extends EventEmitter {
         case OPCodes.WELLCOME:
           setInterval(function() {
             this.ws.ping()
-          }.bind(this), packet.d.heartbeatIntervalMs)
+          }.bind(this), packet.d.heartbeatIntervalMs - 3000)
           break;
       }
 
