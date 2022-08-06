@@ -86,6 +86,7 @@ class Client extends EventEmitter {
     }
   
     if (data) object.data = data
+    console.log(object)
   
     return axios(object).then(x => "").catch(err => {
       console.log(err)
