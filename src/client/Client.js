@@ -77,7 +77,7 @@ class Client extends EventEmitter {
   requestAPI(method = "", params = "", data) {
     let object = {
       method: method,
-      url: "https://discord.com/api/v10" + params,
+      url: "https://www.guilded.gg/api/v1" + params,
       headers: {
         Authorization: `Bearer ${this.token}`
       }
@@ -95,7 +95,6 @@ class Client extends EventEmitter {
     if((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
     this.requestAPI("POST", Constantd.ENDPOINTS.MESSAGE)
   }
-
 }
 
 module.exports = Client
