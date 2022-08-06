@@ -1,4 +1,5 @@
 //========== STRUCTURE DATA
+const UserClient = require("./../structure/UserClient.js")
 
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
@@ -35,7 +36,6 @@ class Client extends EventEmitter {
 
     this.ws.onopen = (data) => {
       console.log('Lumine.js Succesfull To Connect Websocket');
-      console.log(data)
     }
     this.ws.onclose = this.ws.onerror = (e) => {
       this.ws = null
@@ -52,6 +52,9 @@ class Client extends EventEmitter {
 
       switch (packet.type) {
         case OPCodes.WELLCOME:
+          this.emit("ready", new UserClient(packet.d, this))
+          const packg = require("./../../package.json")
+          console.log(`====== ${pack.name}\nv${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
           setInterval(function() {
             this.ws.ping()
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
