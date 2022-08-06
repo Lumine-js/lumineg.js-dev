@@ -11,7 +11,7 @@ const WebSocket = require("ws");
 //========= CLASS
 class Client extends EventEmitter {
   constructor(options = {}) {
-    super()
+      super()
 
     this.token = options?.token || null;
     this.advmode = options?.advance || false
@@ -62,13 +62,13 @@ class Client extends EventEmitter {
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
           break;
       }
-
+      
       console.log(packet)
-
-      switch (packet.t) {
+      
+      switch(packet.t) {
         case "ChatMessageCreated":
           this.emit("messageCreate", new Message(packet.d, this))
-          break;
+        break;
       }
 
     };
@@ -79,20 +79,22 @@ class Client extends EventEmitter {
       method: method,
       url: "https://www.guilded.gg/api/v1" + params,
       headers: {
-        Authorization: `Bearer ${this.token}`
+        Authorization: `Bearer ${this.token}`,
+        "Accept": "application/json",
+        "Content-type": "application/json"
       }
     }
-
+  
     if (data) object.data = data
-
+  
     return axios(object).then(x => "").catch(err => {
       console.log(err)
     })
   }
-
+  
   sendMessage(channelId, data) {
-    if (!channelId) return new TypeError("Uknown Channel Id")
-    if ((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
+    if(!channelId) return new TypeError("Uknown Channel Id")
+    if((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
     this.requestAPI("POST", Constantd.ENDPOINTS.MESSAGE)
   }
 }
