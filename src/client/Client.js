@@ -59,6 +59,12 @@ class Client extends EventEmitter {
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
           break;
       }
+      
+      console.log(packet)
+      
+      switch(packet.t) {
+        
+      }
 
     };
   }
