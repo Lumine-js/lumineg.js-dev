@@ -49,8 +49,7 @@ class Client extends EventEmitter {
 
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-      console.log(packet)
-      switch (packet.type) {
+      switch (packet.op) {
         case OPCodes.WELLCOME:
           this.emit("ready", new UserClient(packet.d, this))
           const packg = require("./../../package.json")
