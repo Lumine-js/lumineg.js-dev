@@ -44,7 +44,7 @@ class Client extends EventEmitter {
     }
 
     var OPCodes = {
-      WELLCOME: 0
+      WELLCOME: 1
     }
 
     this.ws.onmessage = ({ data }) => {
