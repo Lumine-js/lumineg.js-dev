@@ -1,6 +1,8 @@
 //========== STRUCTURE DATA
-const UserClient = require("./../structure/UserClient.js")
+const Constants = require("./../util/constants.js")
 
+const UserClient = require("./../structure/UserClient.js")
+const Message = require("./../structure/Message.js")
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
 const axios = require('axios')
@@ -12,6 +14,7 @@ class Client extends EventEmitter {
     super()
 
     this.token = options?.token || null;
+    this.advmode = options?.advance || false
   }
 
   login(token) {
@@ -63,14 +66,34 @@ class Client extends EventEmitter {
       console.log(packet)
       
       switch(packet.t) {
-        
+        case "ChatMessageCreated":
+          this.emit("messageCreate", new Message(packet.d, this))
+        break;
       }
 
     };
   }
 
   requestAPI(method = "", params = "", data) {
-
+    let object = {
+      method: method,
+      url: "https://discord.com/api/v10" + params,
+      headers: {
+        Authorization: `Bearer ${this.token}`
+      }
+    }
+  
+    if (data) object.data = data
+  
+    return axios(object).then(x => "").catch(err => {
+      console.log(err)
+    })
+  }
+  
+  sendMessage(channelId, data) {
+    if(!channelId) return new TypeError("Uknown Channel Id")
+    if((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
+    this.requestAPI("POST", Constantd.ENDPOINTS.MESSAGE)
   }
 
 }
