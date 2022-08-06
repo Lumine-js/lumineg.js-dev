@@ -94,8 +94,6 @@ class Client extends EventEmitter {
   }
   
   sendMessage(channelId, data) {
-    if(!channelId) return new TypeError("Uknown Channel Id")
-    if((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
     this.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(channelId), data)
   }
 }
