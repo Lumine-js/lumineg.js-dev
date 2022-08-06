@@ -1,12 +1,12 @@
 class Message {
   constructor(options = {}, client) {
     this.client = client
-    if(this.client.advmode) {
+    if(client?.advmode) {
       //Maintenance
     } else {
-      this.guildId = options?.message,m.serverId
-      this.authorId = options?.message?.userId
-      this.channelId
+      this.guildId = options?.message?.serverId
+      this.authorId = options?.message?.createdBy
+      this.channelId = options?.message?.channelId
       this.id = options?.message?.id
       this.content = options?.message?.content
       this.embeds = options?.message?.embeds
