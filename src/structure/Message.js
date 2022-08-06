@@ -1,6 +1,5 @@
 class Message {
   constructor(options = {}, client) {
-    super()
     this.client = client
     if(this.client.advmode) {
       //Maintenance
