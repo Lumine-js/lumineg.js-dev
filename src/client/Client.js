@@ -1,7 +1,7 @@
 class Message {
   constructor(options = {}, client) {
     this.client = client
-    if(this.client.advmode) {
+    if(client?.advmode) {
       //Maintenance
     } else {
       this.guildId = options?.message?.serverId
