@@ -52,13 +52,12 @@ class Client extends EventEmitter {
       console.log(packet)
       switch (packet.type) {
         case OPCodes.WELLCOME:
-          console.log('Sudah Masuk')
-          /*this.emit("ready", new UserClient(packet.d, this))
+          this.emit("ready", new UserClient(packet.d, this))
           const packg = require("./../../package.json")
           console.log(`====== ${pack.name}\nv${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
           setInterval(function() {
             this.ws.ping()
-          }.bind(this), packet.d.heartbeatIntervalMs - 3000)*/
+          }.bind(this), packet.d.heartbeatIntervalMs - 3000)
           break;
       }
 
