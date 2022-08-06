@@ -52,6 +52,7 @@ class Client extends EventEmitter {
 
       switch (packet.type) {
         case OPCodes.WELLCOME:
+          console.log('Sudah Masuk')
           this.emit("ready", new UserClient(packet.d, this))
           const packg = require("./../../package.json")
           console.log(`====== ${pack.name}\nv${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
