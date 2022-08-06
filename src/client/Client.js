@@ -53,7 +53,7 @@ class Client extends EventEmitter {
         case OPCodes.WELLCOME:
           this.emit("ready", new UserClient(packet.d, this))
           const packg = require("./../../package.json")
-          console.log(`====== ${packg.name}\nv${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
+          console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
           setInterval(function() {
             this.ws.ping()
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
