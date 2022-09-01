@@ -29,7 +29,7 @@ class Client extends EventEmitter {
   }
 
   startWebsocket() {
-    let wssurl = 'wss://api.guilded.gg/websocket/v1'
+    let wssurl = 'wss://www.guilded.gg/websocket/v1'
 
     this.ws = new WebSocket(wssurl, {
       headers: {
