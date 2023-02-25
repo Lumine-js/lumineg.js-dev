@@ -98,8 +98,7 @@ class Client extends EventEmitter {
       return x.data
     }).catch(err => {
       if (err.response.status === 400) {
-        var GuildedERROR = err.response.data
-        throw new Error(GuildedERROR)
+        throw new Error(err.response)
       } else if (err.response.status === 429) {
         throw new Error("You have submitted too many requests")
       } else {

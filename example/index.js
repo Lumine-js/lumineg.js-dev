@@ -36,7 +36,8 @@ client.on("messageCreate", (message) => {
       if (data?.content) varena.content = data.content
       if (data?.embeds) varena.embeds = data.embeds
       answered = true
-      message.send(varena)
+      //message.send(varena)
+      client.sendMessage(message.channelId, varena)
     }
   }
 

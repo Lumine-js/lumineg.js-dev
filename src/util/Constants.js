@@ -37,5 +37,5 @@ module.exports.ResolveColor = (args) => {
 }
 
 module.exports.ENDPOINTS = {
-  MESSAGE: (channelId) => `/channels/${channelId}/messages`
+  MESSAGE: (channel_id) => `/channels/${channel_id}/messages`
 }
