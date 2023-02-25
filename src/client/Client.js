@@ -1,5 +1,5 @@
 //========== STRUCTURE DATA
-const Constants = require("./../util/constants.js")
+const Constants = require("./../util/Constants.js")
 
 const UserClient = require("./../structure/UserClient.js")
 const Message = require("./../structure/Message.js")

@@ -1,5 +1,5 @@
 const Base = require("./Base.js")
-class UserClient extends Base {
+class UserClient {
   constructor(options = {}, client) {
     super()
     this.recache = "user"
@@ -8,7 +8,6 @@ class UserClient extends Base {
     this.avatar = options.user.avatar
     this.banner = options.user.banner
     this.bot = options.type === "bot" ? true : false;
-    this.recache = "user"
   }
   
   /*displayAvatarURL(options = {}) {
