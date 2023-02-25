@@ -79,13 +79,12 @@ class Client extends EventEmitter {
     };
   }
 
-  requestAPI(method = "", params = "", data) {
+  async requestAPI(method = "", params = "", data, headers) {
     let object = {
       method: method,
-      url: "www.guilded.gg/api/v1" + params,
+      url: "https://www.guilded.gg/api/v1" + params,
       headers: {
         Authorization: `Bearer ${this.#token}`,
-        "Accept": "application/json",
         "Content-type": "application/json",
         "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
       }
@@ -108,10 +107,10 @@ class Client extends EventEmitter {
     })
   }
 
-  sendMessage(channelId, data) {
+  async sendMessage(channelId, data) {
     if (!channelId) return new TypeError("Uknown Channel Id")
     if ((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
-    this.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(channelId), data)
+    return this.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(channelId), data)
   }
 }
 
