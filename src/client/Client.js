@@ -11,11 +11,11 @@ const clc = require("cli-color")
 
 //========= CLASS
 class Client extends EventEmitter {
-  
-  #token
-  
+
+  #token 
+
   constructor(options = {}) {
-      super()
+    super()
 
     this.#token = options?.token || null;
   }
@@ -24,7 +24,7 @@ class Client extends EventEmitter {
     if (this.#token === null) {
       if (!token) throw new Error("Token Tidak Ada")
     }
-    
+
     if (this.ws) {
       throw new Error('Client Already Run')
     }
@@ -59,8 +59,8 @@ class Client extends EventEmitter {
 
     this.ws.onmessage = ({ data }) => {
       let packet = JSON.parse(data)
-      
-      
+
+
       switch (packet.op) {
         case OPCodes.WELLCOME:
           this.user = new UserClient(packet.d, this)
@@ -72,13 +72,13 @@ class Client extends EventEmitter {
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
           break;
       }
-      
-      if(!packet?.t) return;
-      this.emit('rawEvent', {t: packet.t, d: packet.d})
-      switch(packet.t) {
+
+      if (!packet?.t) return;
+      this.emit('rawEvent', { t: packet.t, d: packet.d })
+      switch (packet.t) {
         case "ChatMessageCreated":
           this.emit("messageCreate", new Message(packet.d, this))
-        break;
+          break;
       }
 
     };
@@ -94,10 +94,10 @@ class Client extends EventEmitter {
         "Content-type": "application/json"
       }
     }
-  
+
     if (data) object.data = data
     console.log(object)
-  
+
     return axios(object).then(x =>
     {
       return x.data
@@ -112,10 +112,10 @@ class Client extends EventEmitter {
       }
     })
   }
-  
+
   sendMessage(channelId, data) {
-    if(!channelId) return new TypeError("Uknown Channel Id")
-    if((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
+    if (!channelId) return new TypeError("Uknown Channel Id")
+    if ((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
     this.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(channelId), data)
   }
 }

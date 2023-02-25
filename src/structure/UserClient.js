@@ -1,8 +1,6 @@
 const Base = require("./Base.js")
 class UserClient {
-  constructor(options = {}, client) {
-    super()
-    this.recache = "user"
+  constructor(options = {}) {
     this.id = options.user.id
     this.username = options.user.name
     this.avatar = options.user.avatar
