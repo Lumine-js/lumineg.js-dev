@@ -86,7 +86,8 @@ class Client extends EventEmitter {
       headers: {
         Authorization: `Bearer ${this.#token}`,
         "Accept": "application/json",
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+        "User-Agent": "nodejs-16.0.0"
       }
     }
 
