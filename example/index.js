@@ -18,6 +18,8 @@ const client = new Client({
   token: process.env.token
 })
 
+client.Message = new Collection()
+
 var ReadCommand = ['Message'];
 
 ReadCommand.forEach(x => require(__dirname + `/handlers/${x}.js`)(client))
@@ -49,7 +51,7 @@ client.on("messageCreate", (message) => {
 
   if (cmd.length === 0) return;
 
-  var command = client.ChatInputCommands.get(cmd)
+  var command = client.Message.get(cmd)
   if (command) {
     try {
       /*

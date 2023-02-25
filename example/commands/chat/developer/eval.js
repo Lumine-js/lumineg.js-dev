@@ -13,12 +13,12 @@ module.exports = {
     const process = require('child_process')
 
     /* eslint-disable no-eval, no-unused-vars */
-    const some = interaction.getString('code')
+    const some = mi.args.join(" ")
 
     const cdb = '```'
 
     const bot = client; //hastebin
-    const msg = interaction;
+    const msg = message;
     const { args, flags } = parseQuery(some);
     try {
 

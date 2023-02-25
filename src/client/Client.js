@@ -45,12 +45,7 @@ class Client extends EventEmitter {
     });
 
     this.ws.onopen = (data) => {
-      console.log('Lumine.js Succesfull To Connect Websocket');
-    }
-    this.ws.onclose = this.ws.onerror = (e) => {
-      this.ws = null
-      console.log('Reconnect...')
-      this.startWebsocket()
+      this.emit("moduleLogging", 'Lumine.js Connected To Websocket')
     }
 
     var OPCodes = {
