@@ -12,7 +12,7 @@ const clc = require("cli-color")
 //========= CLASS
 class Client extends EventEmitter {
 
-  #token 
+  #token
 
   constructor(options = {}) {
     super()
@@ -40,7 +40,8 @@ class Client extends EventEmitter {
 
     this.ws = new WebSocket(wssurl, {
       headers: {
-        Authorization: `Bearer ${this.#token}`
+        Authorization: `Bearer ${this.#token}`,
+        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
       },
     });
 
@@ -87,8 +88,7 @@ class Client extends EventEmitter {
         Authorization: `Bearer ${this.#token}`,
         "Accept": "application/json",
         "Content-type": "application/json",
-        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
-                
+        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
       }
     }
 
