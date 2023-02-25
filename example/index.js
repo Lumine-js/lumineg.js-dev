@@ -18,12 +18,7 @@ const client = new Client({
   token: process.env.token
 })
 
-var ReadCommand = [];
-
-if (config.command.ChatInput === true) {
-  client.Message = new Collection()
-  ReadCommand.push('Message')
-}
+var ReadCommand = ['Message'];
 
 ReadCommand.forEach(x => require(__dirname + `/handlers/${x}.js`)(client))
 
