@@ -87,11 +87,12 @@ class Client extends EventEmitter {
         Authorization: `Bearer ${this.#token}`,
         "Accept": "application/json",
         "Content-type": "application/json",
-        "User-Agent": "nodejs-16.0.0"
+        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
+                
       }
     }
 
-    if (data) object.data = data
+    if (data) object.body = data
     console.log(object)
 
     return axios(object).then(x =>
