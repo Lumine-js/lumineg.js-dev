@@ -43,7 +43,18 @@ client.on("messageCreate", (message) => {
     }
   }
 
-  var command = client.ChatInputCommands.get(message.name)
+  var prefix = "/"
+
+  const args = content
+    .slice(prefix.length)
+    .trim()
+    .split(/ +/g);
+  mi.args = args
+  const cmd = args.shift().toLowerCase();
+
+  if (cmd.length === 0) return;
+
+  var command = client.ChatInputCommands.get(cmd)
   if (command) {
     try {
       /*
