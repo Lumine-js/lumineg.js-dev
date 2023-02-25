@@ -1,4 +1,3 @@
-const Base = require("./Base.js")
 class UserClient {
   constructor(options = {}) {
     this.id = options.user.id
