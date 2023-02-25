@@ -8,7 +8,7 @@ const { EventEmitter } = require("node:events")
 const axios = require('axios')
 const WebSocket = require("ws");
 const clc = require("cli-color")
-
+const packg = require("./../../package.json")
 //========= CLASS
 class Client extends EventEmitter {
 
@@ -61,7 +61,6 @@ class Client extends EventEmitter {
         case OPCodes.WELLCOME:
           this.user = new UserClient(packet.d, this)
           this.emit("ready", this.user)
-          const packg = require("./../../package.json")
           console.log(`Bot ${clc.bold.blue(this.user.username)} telah aktif, \nKamu menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}\n\n\n\n`)
           setInterval(function() {
             this.ws.ping()
