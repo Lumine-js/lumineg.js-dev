@@ -94,7 +94,7 @@ class Client extends EventEmitter {
     console.log(object)
 
     var disurl = "https://www.guilded.gg/api/v1" + params;
-    return fetch(disurl)
+    return fetch(disurl, object)
       .then((response) => response.json())
       .then((data) => data)
       .catch((error) => {
