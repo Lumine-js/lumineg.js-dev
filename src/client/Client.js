@@ -82,7 +82,7 @@ class Client extends EventEmitter {
   requestAPI(method = "", params = "", data) {
     let object = {
       method: method,
-      url: "http://www.guilded.gg/api/v1" + params,
+      url: "www.guilded.gg/api/v1" + params,
       headers: {
         Authorization: `Bearer ${this.#token}`,
         "Accept": "application/json",
