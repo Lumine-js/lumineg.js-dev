@@ -90,10 +90,10 @@ class Client extends EventEmitter {
         body: JSON.stringify(data)
       })
       .then((response) => response.json())
-      .then((data) => data)
-      .catch((error) => {
-        console.log(error)
-      });
+      .then((data) => {
+        console.log(data)
+        return data
+      })
   }
 
   async sendMessage(channelId, data) {
