@@ -80,21 +80,15 @@ class Client extends EventEmitter {
   }
 
   async requestAPI(method = "", params = "", data, headers) {
-    let object = {
-      method: method,
-      headers: {
-        Authorization: `Bearer ${this.#token}`,
-        "Content-type": "application/json",
-        "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
-      }
-    }
-
-
-    if (data) object.body = JSON.stringify(data)
-    console.log(object)
-
-    var disurl = "https://www.guilded.gg/api/v1" + params;
-    return fetch(disurl, object)
+    return fetch(`https://www.guilded.gg/api/v1${params}`, {
+        method: method,
+        headers: {
+          Authorization: `Bearer ${this.#token}`,
+          "Content-Type": "application/json",
+          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
+        },
+        body: JSON.stringify(data)
+      })
       .then((response) => response.json())
       .then((data) => data)
       .catch((error) => {
