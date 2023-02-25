@@ -1,5 +1,5 @@
 class Message {
-  constructor(options = {}) {
+  constructor(options = {}, client) {
     this.guildId = options?.message?.serverId || null
     this.authorId = options?.message?.createdBy || null
     this.channelId = options?.message?.channelId || null
@@ -10,7 +10,7 @@ class Message {
 
   send(data) {
     if ((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
-    this.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(this.channelId), data)
+    client.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(this.channelId), data)
   }
 }
 
