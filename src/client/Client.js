@@ -1,12 +1,11 @@
 //========== STRUCTURE DATA
 const Constants = require("./../util/Constants.js")
-const fetch = require('node-fetch');
 
 const UserClient = require("./../structure/UserClient.js")
 const Message = require("./../structure/Message.js")
 //========== PACKAGE
 const { EventEmitter } = require("node:events")
-const axios = require('axios')
+const fetch = require('node-fetch');
 const WebSocket = require("ws");
 const clc = require("cli-color")
 const packg = require("./../../package.json")
