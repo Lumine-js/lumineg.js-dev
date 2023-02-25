@@ -10,16 +10,22 @@ const WebSocket = require("ws");
 
 //========= CLASS
 class Client extends EventEmitter {
+  
+  #token
+  
   constructor(options = {}) {
       super()
 
-    this.token = options?.token || null;
-    this.advmode = options?.advance || false
+    this.#token = options?.token || null;
   }
 
   login(token) {
-    if (this.token === null) {
+    if (this.#token === null) {
       if (!token) throw new Error("Token Tidak Ada")
+    }
+    
+    if (this.ws) {
+      throw new Error('Client Already Run')
     }
     this.startWebsocket()
   }
@@ -33,7 +39,7 @@ class Client extends EventEmitter {
 
     this.ws = new WebSocket(wssurl, {
       headers: {
-        Authorization: `Bearer ${this.token}`
+        Authorization: `Bearer ${this.#token}`
       },
     });
 
@@ -56,9 +62,10 @@ class Client extends EventEmitter {
       
       switch (packet.op) {
         case OPCodes.WELLCOME:
-          this.emit("ready", new UserClient(packet.d, this))
+          this.user = new UserClient(packet.d, this)
+          this.emit("ready", this.user)
           const packg = require("./../../package.json")
-          console.log(`====== Lumine.js (Project)\n${packg.name} - ${packg.version}\n\nNow Login To ${new UserClient(packet.d, this).username}\n======`)
+          console.log(`Bot ${clc.bold.blue(this.user.username)} telah aktif, \nKamu menggunakan ${clc.yellow.bold(packg.name)} versi ${packg.version}.\nDokumentasi bisa diperiksa pada \n${clc.blue(`https://github.com/Lumine-js/${packg.name}`)}\n\n\n\n`)
           setInterval(function() {
             this.ws.ping()
           }.bind(this), packet.d.heartbeatIntervalMs - 3000)
@@ -81,7 +88,7 @@ class Client extends EventEmitter {
       method: method,
       url: "https://www.guilded.gg/api/v1" + params,
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${this.#token}`,
         "Accept": "application/json",
         "Content-type": "application/json"
       }
@@ -90,8 +97,18 @@ class Client extends EventEmitter {
     if (data) object.data = data
     console.log(object)
   
-    return axios(object).then(x => "").catch(err => {
-      console.log(err)
+    return axios(object).then(x =>
+    {
+      return x.data
+    }).catch(err => {
+      if (err.response.status === 400) {
+        var GuildedERROR = err.response.data
+        throw new Error(GuildedERROR)
+      } else if (err.response.status === 429) {
+        throw new Error("You have submitted too many requests")
+      } else {
+        throw new Error(err)
+      }
     })
   }
   
