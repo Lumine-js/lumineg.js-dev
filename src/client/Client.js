@@ -1,6 +1,6 @@
 //========== STRUCTURE DATA
 const Constants = require("./../util/Constants.js")
-const fetch = require('node:node-fetch');
+const fetch = require('node-fetch');
 
 const UserClient = require("./../structure/UserClient.js")
 const Message = require("./../structure/Message.js")
