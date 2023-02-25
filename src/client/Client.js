@@ -90,7 +90,7 @@ class Client extends EventEmitter {
     }
 
 
-    if (data) object.data = data
+    if (data) object.body = JSON.stringify(data)
     console.log(object)
 
     var disurl = "https://www.guilded.gg/api/v1" + params;
