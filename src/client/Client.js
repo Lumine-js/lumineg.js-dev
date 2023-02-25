@@ -7,6 +7,7 @@ const Message = require("./../structure/Message.js")
 const { EventEmitter } = require("node:events")
 const axios = require('axios')
 const WebSocket = require("ws");
+const clc = require("cli-color")
 
 //========= CLASS
 class Client extends EventEmitter {
