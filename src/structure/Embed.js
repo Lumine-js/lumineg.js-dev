@@ -2,14 +2,32 @@ const { ResolveColor } = require("./../util/Constants.js")
 
 class Embed {
   constructor(raw) {
-    this.title = raw?.title || null
-    this.description = raw?.description || null
-    this.url = raw?.url || null
-    this.fields = raw?.fields || []
-    this.author = raw?.author || null
-    this.footer = raw?.footer || null
-    this.image = raw?.image || null
-    this.color = raw?.color || ResolveColor("Random")
+    if (raw?.title) {
+      this.title = raw.title
+    }
+    if (raw?.description) {
+      this.description = raw.description
+    }
+    if (raw?.url) {
+      this.url = raw.url
+    }
+    if (raw?.fields) {
+      this.fields = raw.fields
+    }
+    if (raw?.author) {
+      this.author = raw.author
+    }
+    if (raw?.footer) {
+      this.footer = raw?.footer
+    }
+    if (raw?.image) {
+      this.image = raw.image
+    }
+    if (raw?.color) {
+      this.color = raw?.color
+    } else {
+      this.color = ResolveColor("Random")
+    }
   }
 
   addField(name, value, inline) {
@@ -237,9 +255,10 @@ class Embed {
           throw new Error("Parameter name Cannot Be Empty")
           return this
         }
-        if (!iconURL) {
-          iconURL = null
+        if (name) {
+          this.author.name = name
         }
+
         if (!typeof iconURL === "null") {
           if (!typeof iconURL === "string") {
             throw new Error("Parameter iconURL Must Be A String")
@@ -251,10 +270,10 @@ class Embed {
           }
         }
 
-
-        if (!url) {
-          url = null
+        if (iconURL) {
+          this.author.iconURL = iconURL
         }
+
         if (!typeof url === "null") {
           if (!typeof url === "string") {
             throw new Error("Parameter url Must Be A String")
@@ -265,7 +284,9 @@ class Embed {
             return this
           }
         }
-        this.author = { name: name, iconURL: iconURL, url: url }
+        if (url) {
+          this.author.url = url
+        }
         return this
       } else {
         if (!name?.name) {
@@ -330,8 +351,8 @@ class Embed {
           throw new Error("Parameter text Cannot Be Empty")
           return this
         }
-        if (!iconURL) {
-          iconURL = null
+        if (text) {
+          this.footer.text = text
         }
         if (!typeof iconURL === "null") {
           if ((!typeof iconURL === "string")) {
@@ -343,7 +364,9 @@ class Embed {
             return this
           }
         }
-        this.footer = { text: text, iconURL: iconURL }
+        if (iconURL) {
+          this.footer.iconURL = iconURL
+        }
         return this
       } else {
         if (!text?.text) {
@@ -358,9 +381,11 @@ class Embed {
           throw new Error("Parameter text Cannot Be Empty")
           return this
         }
-        if (!text?.iconURL) {
-          text.iconURL = null
+        
+        if (text?.text) {
+          this.footer.text = text.text
         }
+        
         if (!typeof text?.iconURL === "null") {
           if ((!typeof text?.iconURL === "string")) {
             throw new Error("Parameter iconURL Must Be A String")
@@ -370,8 +395,10 @@ class Embed {
             throw new Error("Parameter iconURL Cannot Be Empty")
             return this
           }
+        if (text?.iconURL) {
+          this.footer.iconURL = text.iconURL
         }
-        this.footer = { text: text.text, iconURL: text.iconURL }
+        }
         return this
       }
     } catch (err) {
