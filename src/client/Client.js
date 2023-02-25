@@ -92,7 +92,7 @@ class Client extends EventEmitter {
       }
     }
 
-    if (data) object.body = data
+    if (data) object.data = data
     console.log(object)
 
     return axios(object).then(x =>
