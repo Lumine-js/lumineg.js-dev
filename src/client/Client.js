@@ -98,7 +98,7 @@ class Client extends EventEmitter {
       return x.data
     }).catch(err => {
       if (err.response.status === 400) {
-        throw new Error(err.response)
+        throw new Error(JSON.stringify(err))
       } else if (err.response.status === 429) {
         throw new Error("You have submitted too many requests")
       } else {
