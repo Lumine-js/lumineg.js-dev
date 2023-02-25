@@ -82,7 +82,6 @@ class Client extends EventEmitter {
   async requestAPI(method = "", params = "", data, headers) {
     let object = {
       method: method,
-      url: "https://www.guilded.gg/api/v1" + params,
       headers: {
         Authorization: `Bearer ${this.#token}`,
         "Content-type": "application/json",
@@ -90,21 +89,17 @@ class Client extends EventEmitter {
       }
     }
 
-    if (data) object.data = data
+
+    if (data) object.body = data
     console.log(object)
 
-    return axios(object).then(x =>
-    {
-      return x.data
-    }).catch(err => {
-      if (err.response.status === 400) {
-        throw new Error(JSON.stringify(err))
-      } else if (err.response.status === 429) {
-        throw new Error("You have submitted too many requests")
-      } else {
-        throw new Error(err)
-      }
-    })
+    var disurl = "https://www.guilded.gg/api/v1" + params;
+    return fetch(disurl)
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
   async sendMessage(channelId, data) {
