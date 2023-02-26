@@ -85,13 +85,24 @@ class Client extends EventEmitter {
         headers: {
           Authorization: `Bearer ${this.#token}`,
           "Content-Type": "application/json",
-          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
-        },
+          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
+          ...headers
+        }, 
         body: JSON.stringify(data)
       })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!res.ok) {
+          if (res.status === 400) {
+            return res.json().then(text => {
+              throw new Error(text);
+            });
+          } else {
+            throw new Error(`Response status code is ${res.status}`);
+          }
+        }
+        return res.json();
+      })
       .then((data) => {
-        console.log(data)
         return data
       })
   }
