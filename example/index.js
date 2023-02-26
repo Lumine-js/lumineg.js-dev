@@ -43,11 +43,11 @@ client.on("messageCreate", (message) => {
 
   var prefix = "/"
 
-  const args = content
+  const args = message.content
     .slice(prefix.length)
     .trim()
     .split(/ +/g);
-  mi.args = args
+  multiInternal.args = args
   const cmd = args.shift().toLowerCase();
 
   if (cmd.length === 0) return;
@@ -55,10 +55,10 @@ client.on("messageCreate", (message) => {
   var command = client.Message.get(cmd)
   if (command) {
     try {
-      /*
+
       if (command.required.developer) {
-        if (!message.authorId === "552487001824296970") return multiInternal.send({ content: "Hanya bisa digunakan developer saja" })
-      }*/
+        if (!message.authorId === "41oa7xPm") return multiInternal.send({ content: "Hanya bisa digunakan developer saja" })
+      }
 
       /*setTimeout(function() {
         if (answered === false) {

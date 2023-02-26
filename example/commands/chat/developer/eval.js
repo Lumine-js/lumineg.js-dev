@@ -23,6 +23,7 @@ module.exports = {
     try {
 
       let code = some;
+      console.log(code)
       let depth = 0;
       if (flags.includes("async")) {
         code = `(async() => { ${code} })()`;
@@ -51,7 +52,7 @@ module.exports = {
       else evaled = `${evaled}`;
       const embed = new Embed()
 
-        .setAuthor({ name: "Eval Berhasil" })
+        .setTitle("Eval Berhasil")
 
         .setColor("GREEN")
         .setDescription(`**Input**\n${cdb}js\n${code}${cdb}\n**Output**\n${cdb}js\n${evaled}${cdb}\n**Type**\n${cdb}js\n${type}${cdb}\n\nKlik Tombol Di Bawah Untuk Menghapus`)
@@ -63,7 +64,7 @@ module.exports = {
     } catch (e) {
       const embed = new Embed()
         .setColor("RED")
-        .setAuthor({ name: "Eval Eror Kak :(" })
+        .setTitle("Eval Eror Kak :(")
         .setDescription(`${cdb}js\n${e}${cdb}\n\nKlik Tombol Di Bawah Untuk Menghapus`)
         .setTimestamp()
       mi.send({

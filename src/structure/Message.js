@@ -14,7 +14,7 @@ class Message {
   }
 
   send(data) {
-    if ((!data?.content) || (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
+      if ((!data?.content) && (!data?.embeds)) return new TypeError("Cannot Send Empty Message")
     this.#client.requestAPI("POST", Constants.ENDPOINTS.MESSAGE(this.channelId), data)
   }
 }
