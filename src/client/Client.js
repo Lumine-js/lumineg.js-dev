@@ -79,8 +79,8 @@ class Client extends EventEmitter {
     };
   }
 
-  async requestAPI(method = "", params = "", data, headers) {
-    return fetch(`https://www.guilded.gg/api/v1${params}`, {
+  async requestAPI(method = "", params = "", data, headers = {}) {
+    return fetch(`https://www.guilded.gg/api/v1` + params, {
         method: method,
         headers: {
           Authorization: `Bearer ${this.#token}`,
