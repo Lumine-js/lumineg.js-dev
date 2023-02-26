@@ -90,7 +90,7 @@ class Client extends EventEmitter {
         }, 
         body: JSON.stringify(data)
       })
-      .then((response) => {
+      .then((res) => {
         if (!res.ok) {
           if (res.status === 400) {
             return res.json().then(text => {
