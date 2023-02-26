@@ -80,31 +80,24 @@ class Client extends EventEmitter {
   }
 
   async requestAPI(method = "", params = "", data, headers = {}) {
+    try {
     return fetch(`https://www.guilded.gg/api/v1` + params, {
         method: method,
         headers: {
           Authorization: `Bearer ${this.#token}`,
           "Content-Type": "application/json",
-          "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`,
-          ...headers
-        }, 
-        body: JSON.stringify(data)
-      })
-      .then((res) => {
-        if (!res.ok) {
-          if (res.status === 400) {
-            return res.json().then(text => {
-              throw new Error(text);
-            });
-          } else {
-            throw new Error(`Response status code is ${res.status}`);
-          }
-        }
-        return res.json();
-      })
-      .then((data) => {
-        return data
-      })
+            "User-Agent": `@luminejs-restapi/${packg.version} Node.js ${process.version}`
+          },
+          body: JSON.stringify(data)
+        })
+        .then((res) => res.text())
+        .then((res) => {
+          var data = res ? JSON.parse(res) : {}
+          return data
+        })
+    } catch (err) {
+      throw new Error(err)
+    }
   }
 
   async sendMessage(channelId, data) {
